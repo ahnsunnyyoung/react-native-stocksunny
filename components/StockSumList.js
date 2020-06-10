@@ -20,32 +20,26 @@ class SingleRow extends React.Component {
       {
         changeP: '11 MB',
         symbol: 'Mobile ',
-        backgroundColor: '#20d2bb',
       },
       {
         changeP: '52 MB',
         symbol: 'Flight ',
-        backgroundColor: '#febe29',
       },
       {
         changeP: '14 MB',
         symbol: 'Great ',
-        backgroundColor: '#22bcb5',
       },
       {
         changeP: '45 MB',
         symbol: 'Best ',
-        backgroundColor: '#3395ff',
       },
       {
         changeP: '33 MB',
         symbol: 'Bus ',
-        backgroundColor: '#f6437b',
       },
       {
         changeP: '77 MB',
         symbol: 'Train ',
-        backgroundColor: '#febe29',
       },
     ];
     global.slides = slides;
@@ -53,42 +47,37 @@ class SingleRow extends React.Component {
   render() {
     return (
       <View>
-        <Card
+        <Card 
           containerStyle={{
-            backgroundColor: '#dbcdf0',
+            backgroundColor: 'black',
             padding: 10,
             marginLeft: 0,
             marginRight: 0,
             marginTop: 0,
+            borderWidth: 0
           }}>
-          <View style={{ flexDirection: 'row', width: '100%' }}>
+          <View style={styles.row}>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
               {global.slides.map((item, key) => (
-                <TouchableOpacity style={{ margin: 5 }} key={key} onPress={() => { alert('Company ' + item.symbol + ' Clicked'); }}>
+                <TouchableOpacity style={styles.eachCard} key={key} onPress={() => { alert('Company ' + item.symbol + ' Clicked'); }}>
                   <Text
                     source={{
                       uri: item.uri,
                     }}
-                    style={{ width: 70, height: 40, margin: 10 }}
+                    style={styles.graph}
                   >Graph</Text>
                   <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <Text style={{ color: '#3c096c', fontWeight: '500' }}>
+                    style={styles.info}>
+                    <Text style={styles.symbol}>
                       {item.symbol}
                     </Text>
-                    <Text style={{ color: '#5a189a' }}>⋮</Text>
+                    <Text style={{ color: '#e0aaff' }}>⋮</Text>
                   </View>
                   <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <Text style={{ color: '#5a189a', fontWeight: '200' }}>
+                    style={styles.changePView}>
+                    <Text style={styles.changeP}>
                       {item.changeP}
                     </Text>
                   </View>
@@ -101,3 +90,19 @@ class SingleRow extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  row: { flexDirection: 'row', width: '100%' },
+  eachCard: { margin: 5 },
+  graph: { color: '#e0aaff', width: 70, height: 40, margin: 10 },
+  info: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  symbol: { color: '#dbcdf0', fontWeight: '500' },
+  changePView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  changeP: { color: '#e0aaff', fontWeight: '200' }
+})

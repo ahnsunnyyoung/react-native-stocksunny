@@ -6,8 +6,7 @@ export default NewsSumList = () => {
       <View style={styles.container}>
         <SectionList
           sections={[
-            {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
-            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+            {title: 'News', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
           ]}
           renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
           renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
@@ -29,7 +28,8 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 14,
     fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
+    color: '#e0aaff',
+    backgroundColor: '#3c096c',
   },
   item: {
     padding: 10,

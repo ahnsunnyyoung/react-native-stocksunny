@@ -23,21 +23,22 @@ export default function BottomTabNavigator({ navigation, route }) {
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-      fontWeight: 'bold',
+      fontWeight: "500",
+      fontSize: 20
     },
     headerTitle: getHeaderTitle(route),
     headerLeft: () => (
       <Feather name="menu" size={24}
         style={{ marginLeft: 10 }}
-        onPress={() => alert('This is a button!')}
-        title="Info"
+        onPress={() => alert('This is a menu!')}
         color="#fff"
       />
     ),
     headerRight: () => (
       <Button
-        onPress={() => alert('This is a button!')}
-        title="Info"
+        onPress={() => alert('This is a Login!')}
+        style={{fontWeight: "300" }}
+        title="Login"
         color="#fff"
       />
     )});
