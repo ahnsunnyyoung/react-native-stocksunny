@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Entypo } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
+import { Button } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
@@ -16,7 +17,30 @@ export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  navigation.setOptions({
+    headerStyle: {
+      backgroundColor: '#3c096c',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    headerTitle: getHeaderTitle(route),
+    headerLeft: () => (
+      <Feather name="menu" size={24}
+        style={{ marginLeft: 10 }}
+        onPress={() => alert('This is a button!')}
+        title="Info"
+        color="#fff"
+      />
+    ),
+    headerRight: () => (
+      <Button
+        onPress={() => alert('This is a button!')}
+        title="Info"
+        color="#fff"
+      />
+    )});
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
@@ -62,8 +86,10 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
+      return 'Stock Sunny';
+    case 'News':
+      return 'News';
+    case 'Graphs':
+      return 'Graphs';
   }
 }
