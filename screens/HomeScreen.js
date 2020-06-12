@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Divider } from 'react-native-elements';
 
 import StockSumList from '../components/StockSumList';
 import MyList from '../components/MyList';
@@ -11,7 +12,9 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <StockSumList/>
+        <Divider />
         <MyList/>
+        <Divider />
         <NewsSumList/>
       </ScrollView>
     </View>

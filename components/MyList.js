@@ -1,38 +1,104 @@
 import React from 'react';
-import { SectionList, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Card, ListItem, Button } from 'react-native-elements';
+import { AntDesign, Ionicons } from '@expo/vector-icons'; 
+import { Collapse,CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 
-export default MyList = () => {
-    return (
-      <View style={styles.container}>
-        <SectionList
-          sections={[
-            {title: 'My List', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-    );
+export default function MyList() {
+  const list = [
+    {
+      name: 'Amy Farha',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+      subtitle: 'Vice President'
+    },
+    {
+      name: 'Chris Jackson',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      subtitle: 'Vice Chairman'
+    },
+  ]
+
+  return (
+    <View style={styles.container}>
+      <Card containerStyle={{borderRadius:10, backgroundColor: '#3c096c', borderWidth: 0}}>
+        <Collapse style={styles.collapse}>
+            <CollapseHeader>
+                <View style={styles.flex}>
+                    <View style={styles.left}>
+                        <Text style={styles.title}>My List</Text>
+                        <Text style={styles.subtitle}>5 symbols</Text>
+                    </View>
+                    <View style={styles.right}>
+                        <Ionicons name="ios-arrow-dropdown" size={24} color="#e0aaff" />
+                    </View>
+                </View>
+            </CollapseHeader>
+            <CollapseBody style={styles.collapsebody}>
+              {
+                list.map((l, i) => (
+                  <ListItem
+                    key={i}
+                    leftAvatar={{ source: { uri: l.avatar_url } }}
+                    title={l.name}
+                    titleStyle={{color:"#e0aaff"}}
+                    subtitle={l.subtitle}
+                    subtitleStyle={{color:"#e0aaff"}}
+                    containerStyle={{width: "100%", backgroundColor: "#5e548e"}}
+                    bottomDivider
+                  />
+                ))
+              }
+              <View style={styles.flex}>
+                <Button
+                  icon={
+                    <AntDesign name="pluscircleo" size={15} style={{marginRight:5}} color="#e0aaff" />
+                  }
+                  type="clear"
+                  title="add symbol"
+                  titleStyle={{color:"#e0aaff", fontSize:15}}
+                />
+              </View>
+            </CollapseBody>
+        </Collapse>
+      </Card>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
    flex: 1,
+   paddingBottom: 10
   },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#e0aaff',
-    backgroundColor: '#3c096c',
+  flex: {
+    width: "100%",
+    alignItems: "center",
+    display: "flex",
+    flexDirection: 'row',
   },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+  collapse: {
+    alignItems: "center",
+    textAlign: "center"
+  },
+  collapsebody: {
+    alignItems: "center",
+    textAlign: "center",
+  },
+  left: {
+    marginLeft: 30,
+    width: "70%"
+  },
+  right: {
+    width: "30%"
+  },
+  title: {
+   color: "#e0aaff",
+   fontWeight: "bold",
+   fontSize: 15
+  },
+  subtitle: {
+    color: "#e0aaff",
+    fontSize: 13,
+    marginTop: 5
   },
 })

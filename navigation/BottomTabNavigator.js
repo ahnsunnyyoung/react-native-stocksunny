@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Entypo } from '@expo/vector-icons'; 
-import { FontAwesome } from '@expo/vector-icons'; 
-import { Feather } from '@expo/vector-icons'; 
-import { Button } from 'react-native';
+import { Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'; 
+import { StyleSheet } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
@@ -14,34 +12,13 @@ const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomTabNavigator({ navigation, route }) {
-  // Set the header title on the parent stack navigator depending on the
-  // currently active tab. Learn more in the documentation:
-  // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({
-    headerStyle: {
-      backgroundColor: '#3c096c',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: "500",
-      fontSize: 20
-    },
     headerTitle: getHeaderTitle(route),
-    headerLeft: () => (
-      <Feather name="menu" size={24}
-        style={{ marginLeft: 10 }}
-        onPress={() => alert('This is a menu!')}
-        color="#fff"
-      />
-    ),
-    headerRight: () => (
-      <Button
-        onPress={() => alert('This is a Login!')}
-        style={{fontWeight: "300" }}
-        title="Login"
-        color="#fff"
-      />
-    )});
+    headerTitleStyle: {color: "#e0aaff"},
+    headerStyle: {backgroundColor: '#3c096c'},
+    headerLeft: () => (<AntDesign name="user" style={{marginLeft:20}} size={24} color="#e0aaff" onPress={() => alert('This is a menu!')}/>)
+  })
+  
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
@@ -50,7 +27,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={NewsScreen}
         options={{
           title: 'News',
-          tabBarIcon: ({ focused }) => <FontAwesome focused={focused} name="newspaper-o" 
+          tabBarIcon: ({ focused }) => <FontAwesome 
+            name="newspaper-o" 
             size={30}
             style={{ marginBottom: -3 }}
             color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}/>,
@@ -61,7 +39,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={HomeScreen}
         options={{
           title: 'StockSunny',
-          tabBarIcon: ({ focused }) => <Feather focused={focused} name="home" 
+          tabBarIcon: ({ focused }) => <Feather 
+            name="home" 
             size={30}
             style={{ marginBottom: -3 }}
             color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}/>,
@@ -72,7 +51,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={GraphsScreen}
         options={{
           title: 'Graphs',
-          tabBarIcon: ({ focused }) => <Entypo focused={focused} name="line-graph" 
+          tabBarIcon: ({ focused }) => <Entypo 
+            name="line-graph" 
             size={30}
             style={{ marginBottom: -3 }}
             color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}/>,
@@ -94,3 +74,8 @@ function getHeaderTitle(route) {
       return 'Graphs';
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+  },
+});

@@ -1,17 +1,36 @@
 import React from 'react';
-import { SectionList, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Card, ListItem } from 'react-native-elements';
 
-export default NewsSumList = () => {
+export default function NewsSumList() {
+  const list = [
+    {
+      name: 'Amy Farha',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+      subtitle: 'Vice President'
+    },
+    {
+      name: 'Chris Jackson',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      subtitle: 'Vice Chairman'
+    },
+   ]
     return (
       <View style={styles.container}>
-        <SectionList
-          sections={[
-            {title: 'News', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-        />
+          {
+            list.map((l, i) => (
+              <ListItem
+                key={i}
+                leftAvatar={{ source: { uri: l.avatar_url } }}
+                title={l.name}
+                titleStyle={{color:"#e0aaff"}}
+                subtitle={l.subtitle}
+                subtitleStyle={{color:"#e0aaff"}}
+                containerStyle={{backgroundColor: 'black'}}
+                bottomDivider
+              />
+            ))
+          }
       </View>
     );
 }
@@ -19,7 +38,7 @@ export default NewsSumList = () => {
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   paddingTop: 22
+   paddingTop: 15
   },
   sectionHeader: {
     paddingTop: 2,

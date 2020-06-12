@@ -11,14 +11,22 @@ const Stack = createStackNavigator();
 
 export default function App(props) {
   const isLoadingComplete = useCachedResources();
-
+  const MyTheme = {
+    ...DarkTheme,
+    dark: true,
+    colors: {
+      ...DarkTheme.colors,
+      primary: '#e0b1cb',
+      border: 'black',
+    },
+  };
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-        <NavigationContainer linking={LinkingConfiguration} theme= {DarkTheme}>
+        {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
+        <NavigationContainer linking={LinkingConfiguration} theme= {MyTheme}>
           <Stack.Navigator>
             <Stack.Screen name="Root" component={BottomTabNavigator} />
           </Stack.Navigator>

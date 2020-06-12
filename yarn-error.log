@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\samsung\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @expo/vector-icons/Fontisto
+  C:\Program Files\nodejs\node.exe C:\Users\samsung\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add accordion-collapse-react-native
 
 PATH: 
-  C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\MongoDB\Server\4.0\bin;C:\Users\samsung\AppData\Roaming\Python\Python37\Scripts;C:\Users\samsung\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\samsung\AppData\Local\Programs\Python\Python37\;C:\Users\samsung\AppData\Local\Microsoft\WindowsApps;C:\Users\samsung\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\samsung\AppData\Roaming\npm;C:\Program Files\heroku\bin
+  C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\MongoDB\Server\4.0\bin;C:\Users\samsung\AppData\Roaming\Python\Python37\Scripts;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\samsung\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\samsung\AppData\Local\Programs\Python\Python37\;C:\Users\samsung\AppData\Local\Microsoft\WindowsApps;C:\Users\samsung\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\samsung\AppData\Roaming\npm;C:\Program Files\heroku\bin
 
 Yarn version: 
   1.22.4
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@expo%2fvector-icons/Fontisto: Request "https://registry.yarnpkg.com/@expo%2fvector-icons/Fontisto" returned a 405
-      at Request.params.callback [as _callback] (C:\Users\samsung\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66996:18)
-      at Request.self.callback (C:\Users\samsung\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140748:22)
-      at Request.emit (events.js:198:13)
-      at Request.<anonymous> (C:\Users\samsung\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141720:10)
-      at Request.emit (events.js:198:13)
-      at IncomingMessage.<anonymous> (C:\Users\samsung\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141642:12)
-      at Object.onceWrapper (events.js:286:20)
-      at IncomingMessage.emit (events.js:203:15)
-      at endReadableNT (_stream_readable.js:1129:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\samsung\Desktop\고급웹프\final\stocksunny\node_modules\@expo\configure-splash-screen\node_modules\@react-native-community\cli-platform-ios\node_modules\xcode\node_modules\.bin'
 
 npm manifest: 
   {
@@ -41,7 +31,7 @@ npm manifest:
       "preset": "jest-expo"
     },
     "dependencies": {
-      "@expo/vector-icons": "~10.0.6",
+      "@expo/vector-icons": "^10.2.0",
       "@react-native-community/masked-view": "0.1.6",
       "@react-navigation/bottom-tabs": "^5.3.1",
       "@react-navigation/native": "^5.2.1",
@@ -1093,17 +1083,10 @@ Lockfile:
       util.promisify "^1.0.0"
       write-file-atomic "^2.3.0"
   
-  "@expo/vector-icons@^10.0.2":
+  "@expo/vector-icons@^10.0.2", "@expo/vector-icons@^10.2.0":
     version "10.2.0"
     resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.2.0.tgz#3c70656683a6a873e18efc00bc61fc160a80dc55"
     integrity sha512-dYe0SW/xbzWRtWG7i1pc3QPMGMbdReVgP02XlwMkS4srAAjF0cZQVa3ZgZ6qzxI+OzKudpDXZRmENNth/b263g==
-    dependencies:
-      lodash "^4.17.4"
-  
-  "@expo/vector-icons@~10.0.6":
-    version "10.0.6"
-    resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.0.6.tgz#5718953ff0b97827d11dae5787976fa8ce5caaed"
-    integrity sha512-qNlKPNdf073LpeEpyClxAh0D3mmIK4TGAQzeKR0HVwf14RIEe17+mLW5Z6Ka5Ho/lUtKMRPDHumSllFyKvpeGg==
     dependencies:
       lodash "^4.17.4"
   
