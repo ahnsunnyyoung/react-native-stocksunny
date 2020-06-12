@@ -1,13 +1,21 @@
-import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import StockSumList from '../components/StockSumList';
 import MyList from '../components/MyList';
 import NewsSumList from '../components/NewsSumList';
+import { loadStock } from '../actions';
 
 export default function HomeScreen() {
+  const dispatch = useDispatch();
+  useEffect(()=> {
+    dispatch(loadStock('AAPL'))
+    dispatch(loadStock('MSFT'))
+    dispatch(loadStock('AMZN'))
+  })
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -21,9 +29,6 @@ export default function HomeScreen() {
   );
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
 
 const styles = StyleSheet.create({
   container: {

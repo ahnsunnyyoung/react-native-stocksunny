@@ -43,7 +43,7 @@ export default function MyList() {
                     titleStyle={{color:"#e0aaff"}}
                     subtitle={l.subtitle}
                     subtitleStyle={{color:"#e0aaff"}}
-                    containerStyle={{width: "100%", backgroundColor: "#5e548e"}}
+                    containerStyle={{width: "100%", backgroundColor: '#3c096c'}}
                     bottomDivider
                   />
                 ))
@@ -78,11 +78,9 @@ const styles = StyleSheet.create({
   },
   collapse: {
     alignItems: "center",
-    textAlign: "center"
   },
   collapsebody: {
     alignItems: "center",
-    textAlign: "center",
   },
   left: {
     marginLeft: 30,
