@@ -6,19 +6,18 @@ import { useSelector } from 'react-redux';
 
 export default function StockSumList() {
   const stocks = useSelector(state => state.stocks);
-  console.log(stocks)
 
   return (
     <ScrollView>
       <View>
-        <SingleRow />
+        <SingleRow stocks={stocks}/>
       </View>
     </ScrollView>
   );
   
 }
 
-function SingleRow() {
+function SingleRow({stocks}) {
   return (
     <View>
       <Card 
@@ -34,7 +33,7 @@ function SingleRow() {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}>
-            {_.map((stocks, stock) => (
+            {_.map(stocks, stock => 
               <TouchableOpacity style={styles.eachCard} key={stock.ticker} onPress={() => { alert('Company ' + item.symbol + ' Clicked'); }}>
                 <Text
                   style={styles.graph}
@@ -49,11 +48,11 @@ function SingleRow() {
                 <View
                   style={styles.changePView}>
                   <Text style={styles.changeP}>
-                    <b>{stock.per}%</b>({stock.diff})
+                    {stock.per}%({stock.diff})
                   </Text>
                 </View>
               </TouchableOpacity>
-            ))}
+            )}
           </ScrollView>
         </View>
       </Card>
