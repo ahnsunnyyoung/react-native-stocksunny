@@ -3,12 +3,19 @@ import { StyleSheet, View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
+import { useNavigation } from '@react-navigation/native';
 
-function NewsItem(news){
-  var {news}=news;
+function NewsItem({news}){
   var date = new Date(news.datetime*1000);
+  const navigation = useNavigation();
   return(
       <ListItem
+        onPress={() => {
+          /* 1. Navigate to the Details route with params */
+          navigation.navigate('NewsDetail', {
+            newsId: news.id
+          });
+        }}
         key={news.id}
         leftAvatar={{ source: { uri: news.image } }}
         title={<Text style={styles.headline}>{news.headline}</Text>}

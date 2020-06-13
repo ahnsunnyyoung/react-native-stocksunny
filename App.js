@@ -10,7 +10,8 @@ import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 import rootReducer from './reducers';
-
+import NewsDetail from './components/NewsDetail';
+import CompanyDetail from './components/CompanyDetail';
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
 
@@ -36,6 +37,14 @@ export default function App(props) {
           <NavigationContainer linking={LinkingConfiguration} theme= {MyTheme}>
             <Stack.Navigator>
               <Stack.Screen name="Root" component={BottomTabNavigator} />
+              <Stack.Screen name="NewsDetail" component={NewsDetail} options={{
+                    headerTitleStyle: {color: "#e0aaff"},
+                    headerStyle: {backgroundColor: '#3c096c'}
+                    }}/>
+              <Stack.Screen name="CompanyDetail" component={CompanyDetail} options={{
+                    headerTitleStyle: {color: "#e0aaff"},
+                    headerStyle: {backgroundColor: '#3c096c'}
+                    }}/>
             </Stack.Navigator>
           </NavigationContainer>
         </View>

@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import _ from 'lodash';
 import { useSelector } from 'react-redux';
 import { LineChart } from 'react-native-svg-charts';
+import { useNavigation } from '@react-navigation/native';
 
 export default function StockSumList() {
   const stocks = useSelector(state => state.stocks);
@@ -34,6 +35,7 @@ function selectPercent(per, diff){
 }
 
 function SingleRow({stocks}) {
+  const navigation = useNavigation();
   return (
     <View>
       <Card 
@@ -50,7 +52,13 @@ function SingleRow({stocks}) {
             horizontal={true}
             showsHorizontalScrollIndicator={false}>
             {_.map(stocks, stock => 
-              <TouchableOpacity style={styles.eachCard} key={stock.ticker} onPress={() => { alert('Company ' + item.symbol + ' Clicked'); }}>
+              <TouchableOpacity style={styles.eachCard} key={stock.ticker} 
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  navigation.navigate('CompanyDetail', {
+                    companyId: stock.ticker
+                  });
+                }}>
                 <View style={styles.graph}>
                   <LineChart
                     style={{ height: 30 }}

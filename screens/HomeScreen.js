@@ -9,9 +9,8 @@ import NewsSumList from '../components/NewsSumList';
 import { loadStocks } from '../actions';
 import AnimatedLoader from "react-native-animated-loader";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const isLoading = useSelector(state => state.loading);
-
   const dispatch = useDispatch();
   useEffect(()=> {
     console.log("useEffect")
@@ -39,7 +38,7 @@ export default function HomeScreen() {
           <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <StockSumList/>
             <MyList/>
-            <NewsSumList/>
+            <NewsSumList navigation={navigation}/>
           </ScrollView>
         </View>
       );
