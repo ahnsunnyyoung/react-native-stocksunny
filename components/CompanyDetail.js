@@ -1,9 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import { Card, Tile } from 'react-native-elements';
+import { StyleSheet, View, Text } from 'react-native';
+import { Card, Avatar } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
 import { LineChart } from 'react-native-svg-charts';
+import { Entypo } from '@expo/vector-icons'; 
+
+function selectPercent(per, diff){
+  if(per<0){
+      return(
+        <Text style={{color:'#D80A0A', fontSize: 20}}>
+          {per}%({diff})
+        </Text>
+      );
+  }else{
+      return(
+        <Text style={{color:'#0AA5D8', fontSize: 20}}>
+          {per}%({diff})
+        </Text>
+      );
+  }
+}
 
 export default function CompanyDetail({ route }){
   const { companyId } = route.params;
@@ -13,46 +30,118 @@ export default function CompanyDetail({ route }){
 
   return(
     <View>
-        <View style={styles.graph}>
-            <LineChart
-                style={{ height: 200 }}
-                data={stock.trendsCalendar}
-                svg={{ stroke: '#e0aaff' }}
-                contentInset={{ top: 20, bottom: 20 }}
-            >
-            </LineChart>
+      <View style={styles.graph}>
+        <LineChart
+          style={{ height: 150 }}
+          data={stock.trendsCalendar}
+          svg={{ stroke: '#e0aaff' }}
+          contentInset={{ top: 20, bottom: 20 }}
+        >
+        </LineChart>
+      </View>
+      <Card containerStyle={{ backgroundColor:"black", borderWidth:0 }}>
+        <View style={styles.titleContainer}>
+          <View style={styles.left}>
+            <Avatar
+              size="large"
+              rounded
+              source={{uri:profile.logo}}
+            />
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.titleText}>{profile.name}</Text>
+          </View>
         </View>
-        <Tile
-            imageSrc={{uri: profile.logo}}
-            title="Wide diversification is only required when investors do not understand what they are doing."
-            titleStyle={{fontWeight:"300", color:"#FFF", fontStyle:"italic", fontSize:20}}
-            height={400}
-            width={400}
-            featured
-            caption="Warren Edward Buffett"
-            captionStyle={{fontWeight:"200", color:"#e0aaff", fontStyle:"italic"}}
-        />
-        <Card containerStyle={{backgroundColor:"black", borderWidth:0}} title={companyId} titleStyle={{fontSize:20,color:"#e0aaff"}}>
-        <View>
-            <Text style={styles.summary}>{companyId}</Text>
+        <View
+          style={styles.changePView}>
+            {selectPercent(stock.percent, stock.diff)}
+          
         </View>
-        </Card>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Text style={styles.bold}>Country</Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.content}>{profile.country}</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Text style={styles.bold}>Currency  </Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.content}>{profile.currency}</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Text style={styles.bold}>IPO  </Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.content}>{profile.ipo}</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Entypo name="phone" size={24} color='#e0aaff' />
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.content}>{profile.phone}</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Text style={styles.bold}>Website</Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.url}>{profile.weburl}</Text>
+          </View>
+        </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  date:{
-    marginTop:20,
-    alignSelf:"flex-end",
-    fontWeight: "100",
-    color: '#e0aaff',
-    fontSize:15,
+  titleContainer:{
+    display: "flex",
+    flexDirection: 'row',
   },
-  summary:{
-    marginTop:20,
-    fontSize:18,
+  container:{
+    marginTop: 20,
+    display: "flex",
+    flexDirection: 'row',
+  },
+  left:{
+    width:"30%",
+  },
+  right:{
+    width: "70%",
+    alignSelf:"flex-end"
+  },
+  titleText:{
     color: '#e0aaff',
-    fontWeight: "300",
+    fontSize: 30,
+    fontWeight: "800",
+    fontStyle: "italic"
+  },
+  bold:{
+    color: '#e0aaff',
+    fontWeight: "400",
+    fontSize: 20
+  },
+  content: {
+    color: '#e0aaff',
+    fontWeight: "200",
+    fontSize: 20
+  },
+  url: {
+    color: '#e0aaff',
+    fontWeight: "200",
+    fontSize: 15
+  },
+  changePView: {
+    marginTop: 15,
+    alignSelf: "center"
   }
 })
