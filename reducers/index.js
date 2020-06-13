@@ -41,7 +41,6 @@ const reducer = produce((state, action) => {
         case "LOAD_STOCK":
             if(state.stocks[action.payload[0].ticker]){
             }
-            
             state.stocks[action.payload[0].ticker] = action.payload[0] || {};
             action.payload[1].forEach(item => {
                 if(state.news.company[item.id]){
@@ -50,7 +49,6 @@ const reducer = produce((state, action) => {
                     state.news.carr.push(item);
                 }
             });
-            
             break;
         case 'LOAD_GENERAL_NEWS':
             action.payload.forEach(item => {

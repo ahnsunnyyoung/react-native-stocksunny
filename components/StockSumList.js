@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { Card } from 'react-native-elements';
 import _ from 'lodash';
 import { useSelector } from 'react-redux';
+import { LineChart } from 'react-native-svg-charts';
 
 export default function StockSumList() {
   const stocks = useSelector(state => state.stocks);
@@ -15,6 +16,22 @@ export default function StockSumList() {
     </ScrollView>
   );
   
+}
+
+function selectPercent(per, diff){
+  if(per<0){
+      return(
+        <Text style={{color:'#D80A0A'}}>
+          {per}%({diff})
+        </Text>
+      );
+  }else{
+      return(
+        <Text style={{color:'#0AA5D8'}}>
+          {per}%({diff})
+        </Text>
+      );
+  }
 }
 
 function SingleRow({stocks}) {
@@ -35,9 +52,15 @@ function SingleRow({stocks}) {
             showsHorizontalScrollIndicator={false}>
             {_.map(stocks, stock => 
               <TouchableOpacity style={styles.eachCard} key={stock.ticker} onPress={() => { alert('Company ' + item.symbol + ' Clicked'); }}>
-                <Text
-                  style={styles.graph}
-                >Graph</Text>
+                <View style={styles.graph}>
+                  <LineChart
+                    style={{ height: 30 }}
+                    data={stock.trendsCalendar}
+                    svg={{ stroke: '#e0aaff' }}
+                    contentInset={{ top: 20, bottom: 20 }}
+                  >
+                  </LineChart>
+                </View>
                 <View
                   style={styles.info}>
                   <Text style={styles.symbol}>
@@ -47,9 +70,8 @@ function SingleRow({stocks}) {
                 </View>
                 <View
                   style={styles.changePView}>
-                  <Text style={styles.changeP}>
-                    {stock.per}%({stock.diff})
-                  </Text>
+                    {selectPercent(stock.percent, stock.diff)}
+                  
                 </View>
               </TouchableOpacity>
             )}
@@ -63,7 +85,7 @@ function SingleRow({stocks}) {
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', width: '100%' },
   eachCard: { margin: 5 },
-  graph: { color: '#e0aaff', width: 70, height: 40, margin: 10 },
+  graph: { width: 70, height: 40, margin: 10 },
   info: {
     flexDirection: 'row',
     justifyContent: 'space-between',

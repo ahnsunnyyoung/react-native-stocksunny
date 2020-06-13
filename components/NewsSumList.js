@@ -1,38 +1,34 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
+import { useSelector } from 'react-redux';
+import _ from 'lodash';
 
 export default function NewsSumList() {
-  const list = [
-    {
-      name: 'Amy Farha',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      subtitle: 'Vice President'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-   ]
+  const isLoading = useSelector(state => state.loading);
+  const newsdata = useSelector(state => state.news.company);
+  if(isLoading){
+    return null;
+  }else{
     return (
       <View style={styles.container}>
           {
-            list.map((l, i) => (
+            _.map(newsdata, news => (
               <ListItem
-                key={i}
-                leftAvatar={{ source: { uri: l.avatar_url } }}
-                title={l.name}
+                key={news.id}
+                leftAvatar={{ source: { uri: news.image } }}
+                title={news.headline}
                 titleStyle={{color:"#e0aaff"}}
-                subtitle={l.subtitle}
+                subtitle={"hi"}
                 subtitleStyle={{color:"#e0aaff"}}
                 containerStyle={{backgroundColor: 'black'}}
                 bottomDivider
               />
-            ))
-          }
+            )
+          )}
       </View>
     );
+  }
 }
 
 const styles = StyleSheet.create({

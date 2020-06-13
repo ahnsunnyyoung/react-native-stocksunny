@@ -12,9 +12,12 @@ import { loadStock } from '../actions';
 export default function HomeScreen() {
   const dispatch = useDispatch();
   useEffect(()=> {
+    console.log("useEffect")
     dispatch(loadStock('AAPL'))
     dispatch(loadStock('MSFT'))
     dispatch(loadStock('AMZN'))
+    dispatch(loadStock('GOOG'))
+    dispatch(loadStock('TSLA'))
   })
   return (
     <View style={styles.container}>

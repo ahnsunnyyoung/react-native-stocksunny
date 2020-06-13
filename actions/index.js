@@ -18,7 +18,7 @@ export function loadStock(symbol) {
         const s_url = `${BASE_URL}quote?`;
         const p_url = `${BASE_URL}/stock/profile2?`;
         const n_url = `${BASE_URL}/company-news?`;
-        const e_url = `${BASE_URL}/calendar/earnings?`;
+        const t_url = `${BASE_URL}/stock/recommendation?`;
         try{
             const company = await axios(s_url, {params: {
                 symbol: symbol,
@@ -30,28 +30,25 @@ export function loadStock(symbol) {
             }});
             const news = await axios(n_url, {params: {
                 symbol: symbol,
-                from: '2010-01-01',
-                to: '2020-03-15',
-                //from: date,
-                //to: date,
+                from: "2020-05-01",
+                to: "2020-05-02",
                 token: API_KEY
             }});
-            const earning = await axios(e_url, {params: {
-                from: '2010-01-01',
-                to: '2020-03-15',
+            const trend = await axios(t_url, {params: {
                 symbol: symbol,
                 token: API_KEY
             }});
+            news.data = news.data.slice(0,4);
             const result =[];
-            const earnings = [];
+            const trends = [];
             company.data.diff = (company.data.c - company.data.pc).toFixed();
             company.data.percent = ((company.data.c - company.data.pc)/company.data.pc*100).toFixed(2);
-            earning.data.earningsCalendar.forEach(item => {
-                earnings.push(item.revenueActual)
+            trend.data.forEach(item => {
+                trends.push(item.buy)
             });
             company.data.ticker = symbol;
             company.data.profile = profile.data;
-            company.data.earningsCalendar = earnings.reverse();
+            company.data.trendsCalendar = trends.reverse();
             result.push(company.data)
             result.push(news.data)
             dispatch({
