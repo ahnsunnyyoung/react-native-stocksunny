@@ -1,34 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Card, ListItem } from 'react-native-elements';
+import { StyleSheet, View, Text } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
 
+function NewsItem(news){
+  var {news}=news;
+  var date = new Date(news.datetime*1000);
+  return(
+      <ListItem
+        key={news.id}
+        leftAvatar={{ source: { uri: news.image } }}
+        title={<Text style={styles.headline}>{news.headline}</Text>}
+        titleStyle={{color:"#e0aaff"}}
+        subtitle={<Text style={styles.date}>date: {(date.getMonth()+1) + '월 '+ date.getDate() + '일'}</Text>}
+        subtitleStyle={{color:"#e0aaff"}}
+        containerStyle={{backgroundColor: 'black'}}
+        bottomDivider
+      />  
+  );
+}
+
 export default function NewsSumList() {
-  const isLoading = useSelector(state => state.loading);
-  const newsdata = useSelector(state => state.news.company);
-  if(isLoading){
-    return null;
-  }else{
-    return (
-      <View style={styles.container}>
-          {
-            _.map(newsdata, news => (
-              <ListItem
-                key={news.id}
-                leftAvatar={{ source: { uri: news.image } }}
-                title={news.headline}
-                titleStyle={{color:"#e0aaff"}}
-                subtitle={"hi"}
-                subtitleStyle={{color:"#e0aaff"}}
-                containerStyle={{backgroundColor: 'black'}}
-                bottomDivider
-              />
-            )
-          )}
-      </View>
-    );
-  }
+  const newsdata = useSelector(state => state.news);
+
+  return (
+    <View style={styles.container}>
+        {_.map(newsdata, news => (<NewsItem key={news.id} news={news}/>))}
+    </View>
+  );
+  
 }
 
 const styles = StyleSheet.create({
@@ -51,4 +52,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  headline:{
+    fontWeight: "200",
+    color: '#e0aaff',
+    fontSize:18,
+  },
+  date:{
+    fontSize:14,
+    color: '#e0aaff',
+    fontWeight: "100",
+  }
 })

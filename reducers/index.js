@@ -1,26 +1,16 @@
 import produce from "immer";
 const baseState = {
-    loading: false,
+    loading: true,
     error: "",
     stocks:{
     },
     forex:{
     },
-    news:{
-        company:{
-
-        },
-        carr:[
-
-        ],
-        general:{
-
-        },
-        forex:{
-
-        }
+    news:[
+    ],
+    newsSeardh:{
+        
     },
-    selected: undefined,
     candle: {},
     covid: [],
 };
@@ -39,32 +29,9 @@ const reducer = produce((state, action) => {
             state.covid = action.payload;
             break;
         case "LOAD_STOCK":
-            if(state.stocks[action.payload[0].ticker]){
-            }
-            state.stocks[action.payload[0].ticker] = action.payload[0] || {};
-            action.payload[1].forEach(item => {
-                if(state.news.company[item.id]){
-                }else{
-                    state.news.company[item.id] = item || {};
-                    state.news.carr.push(item);
-                }
-            });
-            break;
-        case 'LOAD_GENERAL_NEWS':
-            action.payload.forEach(item => {
-                if(state.news.general[item.id]){
-                }else{
-                    state.news.general[item.id] = item || {};
-                }
-            });
-            break;  
-        case 'LOAD_FOREX_NEWS':
-            action.payload.forEach(item => {
-                if(state.news.forex[item.id]){
-                }else{
-                    state.news.forex[item.id] = item || {};
-                }
-            });
+            state.stocks = action.payload[0];
+            state.news = action.payload[1];
+            state.newsSearch = action.payload[2];
             break;  
         case 'LOAD_FOREX':
             state.forex = action.payload;

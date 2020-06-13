@@ -7,7 +7,6 @@ import { LineChart } from 'react-native-svg-charts';
 
 export default function StockSumList() {
   const stocks = useSelector(state => state.stocks);
-
   return (
     <ScrollView>
       <View>

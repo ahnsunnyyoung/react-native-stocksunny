@@ -4,53 +4,113 @@ const BASE_URL = "https://finnhub.io/api/v1/";
 const API_KEY = "bqnc08frh5re7283le90";
 const today = new Date();  
 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const BASE_COMPANY = [ "AAPL", "TSLA", "AMZN", "MSFT", "GOOG"];
+let companyResult = {}
 
 function toTimestamp(year,month,day,hour,minute,second){
     var datum = new Date(Date.UTC(year,month-1,day,hour,minute,second));
     return datum.getTime()/1000;
    }
 
-
 export function loadStock(symbol) {
-    return async (dispatch) => {
+    axios.get(`${BASE_URL}quote?symbol=${symbol}&token=${API_KEY}`).then( (company) => {
+        company.data.diff = (company.data.c - company.data.pc).toFixed();
+        company.data.percent = ((company.data.c - company.data.pc)/company.data.pc*100).toFixed(2);
+        company.data.ticker = symbol;
+        axios.get(`${BASE_URL}stock/profile2?symbol=${symbol}&token=${API_KEY}`).then( (profile) => {
+            company.data.profile = profile.data;
+
+            axios.get(`${BASE_URL}stock/recommendation?symbol=${symbol}&token=${API_KEY}`).then( (trend) => {
+                const trends = [];
+                trend.data.forEach(item => {
+                    trends.push(item.buy)
+                });
+                company.data.trendsCalendar = trends.reverse();
+                console.log(company.data)
+                companyResult[symbol] = company.data
+                return company.data;
+            }).catch((err) => {
+                console.log(err)
+            })
+            
+        }).catch((err) => {
+            console.log(err)
+        })
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function loadStocks() {
+    return async function(dispatch) {
+        dispatch({ type: 'START_LOADING' });
+        dispatch({ type: 'CLEAR_ERRORS' });
+        const f_url = `${BASE_URL}/news?`;
+        const BASE_COMPANY = [ "AAPL", "TSLA", "AMZN", "GOOG", "MSFT"];
+        var result = [];
+        try{
+            for(let symbol of BASE_COMPANY) {      // Wait 1 sec between API calls
+                // companyResult[symbol] = await loadStock(symbol);
+                loadStock(symbol)
+
+            }
+            
+            await timeout(8000)
+            const general = await axios(f_url, {params: {
+                category: 'general',
+                minId:2,
+                token: API_KEY
+            }});
+            var news = {};
+            general.data.forEach(item => {
+                if(news[item.id]){
+                }else{
+                    news[item.id] = item || {};
+                }
+            });
+            result.push(companyResult);
+            result.push(general.data);
+            result.push(news);
+            dispatch({
+                type: 'LOAD_STOCK',
+                payload: result,
+            });
+        }finally{
+            dispatch({ type: 'END_LOADING' });
+        }
+    }
+}
+
+export function loadStick() {
+    console.log("in loadstock")
+    return (dispatch) => {
+        console.log("in dispatch")
         dispatch({ type: 'START_LOADING' });
         dispatch({ type: 'CLEAR_ERRORS' });
         const s_url = `${BASE_URL}quote?`;
         const p_url = `${BASE_URL}/stock/profile2?`;
-        const n_url = `${BASE_URL}/company-news?`;
+        const f_url = `${BASE_URL}/news?`;
         const t_url = `${BASE_URL}/stock/recommendation?`;
         try{
-            const company = await axios(s_url, {params: {
-                symbol: symbol,
+            console.log("in try")
+
+            var result = [];
+            var companyResult = {};
+
+            const general = axios(f_url, {params: {
+                category: 'general',
+                minId:2,
                 token: API_KEY
             }});
-            const profile = await axios(p_url, {params: {
-                symbol: symbol,
-                token: API_KEY
-            }});
-            const news = await axios(n_url, {params: {
-                symbol: symbol,
-                from: "2020-05-01",
-                to: "2020-05-02",
-                token: API_KEY
-            }});
-            const trend = await axios(t_url, {params: {
-                symbol: symbol,
-                token: API_KEY
-            }});
-            news.data = news.data.slice(0,4);
-            const result =[];
-            const trends = [];
-            company.data.diff = (company.data.c - company.data.pc).toFixed();
-            company.data.percent = ((company.data.c - company.data.pc)/company.data.pc*100).toFixed(2);
-            trend.data.forEach(item => {
-                trends.push(item.buy)
-            });
-            company.data.ticker = symbol;
-            company.data.profile = profile.data;
-            company.data.trendsCalendar = trends.reverse();
-            result.push(company.data)
-            result.push(news.data)
+            general.data = general.data.slice(0,4);
+            
+            result.push(companyResult);
+            result.push(general.data);
+            console.log(result)
             dispatch({
                 type: 'LOAD_STOCK',
                 payload: result
@@ -66,7 +126,19 @@ export function loadStock(symbol) {
     };
 }
 
-export function selectCompany(company){
+export function loadData(){
+    axios.get('/user?ID=12345')
+        .then(function (response) {
+            // handle success
+            console.log(response);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
     return {
         type: 'COMPANY_SELECT',
         payload: company
