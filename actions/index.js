@@ -85,67 +85,6 @@ export function loadStocks() {
     }
 }
 
-export function loadStick() {
-    console.log("in loadstock")
-    return (dispatch) => {
-        console.log("in dispatch")
-        dispatch({ type: 'START_LOADING' });
-        dispatch({ type: 'CLEAR_ERRORS' });
-        const s_url = `${BASE_URL}quote?`;
-        const p_url = `${BASE_URL}/stock/profile2?`;
-        const f_url = `${BASE_URL}/news?`;
-        const t_url = `${BASE_URL}/stock/recommendation?`;
-        try{
-            console.log("in try")
-
-            var result = [];
-            var companyResult = {};
-
-            const general = axios(f_url, {params: {
-                category: 'general',
-                minId:2,
-                token: API_KEY
-            }});
-            general.data = general.data.slice(0,4);
-            
-            result.push(companyResult);
-            result.push(general.data);
-            console.log(result)
-            dispatch({
-                type: 'LOAD_STOCK',
-                payload: result
-            });
-        }catch(error){
-            dispatch({
-                type: 'ERROR',
-                payload: error
-            });
-        }finally{
-            dispatch({ type: 'END_LOADING' });
-        }
-    };
-}
-
-export function loadData(){
-    axios.get('/user?ID=12345')
-        .then(function (response) {
-            // handle success
-            console.log(response);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            // always executed
-        });
-    return {
-        type: 'COMPANY_SELECT',
-        payload: company
-    };
-}
-
-
 export function loadForex(){
     return async (dispatch) => {
         const f_url = `${BASE_URL}/forex/rates?`;

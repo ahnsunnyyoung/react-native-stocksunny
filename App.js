@@ -12,6 +12,7 @@ import LinkingConfiguration from './navigation/LinkingConfiguration';
 import rootReducer from './reducers';
 import NewsDetail from './components/NewsDetail';
 import CompanyDetail from './components/CompanyDetail';
+import AddMyList from './components/AddMyList';
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
 
@@ -42,6 +43,10 @@ export default function App(props) {
                     headerStyle: {backgroundColor: '#3c096c'}
                     }}/>
               <Stack.Screen name="CompanyDetail" component={CompanyDetail} options={{
+                    headerTitleStyle: {color: "#e0aaff"},
+                    headerStyle: {backgroundColor: '#3c096c'}
+                    }}/>
+              <Stack.Screen name="AddMyList" component={AddMyList} options={{
                     headerTitleStyle: {color: "#e0aaff"},
                     headerStyle: {backgroundColor: '#3c096c'}
                     }}/>

@@ -3,8 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements';
 import { AntDesign, Ionicons } from '@expo/vector-icons'; 
 import { Collapse,CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MyList() {
+  const navigation = useNavigation();
+
   const list = [
     {
       name: 'Amy Farha',
@@ -56,6 +59,10 @@ export default function MyList() {
                   type="clear"
                   title="add symbol"
                   titleStyle={{color:"#e0aaff", fontSize:15}}
+                  onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    navigation.navigate('AddMyList');
+                  }}
                 />
               </View>
             </CollapseBody>
