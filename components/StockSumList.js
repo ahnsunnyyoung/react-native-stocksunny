@@ -62,7 +62,7 @@ function SingleRow({stocks}) {
                 <View style={styles.graph}>
                   <LineChart
                     style={{ height: 30 }}
-                    data={stock.trendsCalendar}
+                    data={stock.symbolCalendar[0]}
                     svg={{ stroke: '#e0aaff' }}
                     contentInset={{ top: 20, bottom: 20 }}
                   >

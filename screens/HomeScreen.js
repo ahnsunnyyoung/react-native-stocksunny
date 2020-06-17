@@ -21,13 +21,14 @@ export default function HomeScreen({navigation}) {
   if(isLoading){
     console.log("loading")
     return (
-      <AnimatedLoader
-        visible={true}
-        overlayColor="rgba(0,0,0,0.75)"
-        source={require("../assets/1124-loader.json")}
-        animationStyle={styles.lottie}
-        speed={1}
-      />
+      <Text>Loading...</Text>
+      // <AnimatedLoader
+      //   visible={true}
+      //   overlayColor="rgba(0,0,0,0.75)"
+      //   source={require("../assets/1124-loader.json")}
+      //   animationStyle={styles.lottie}
+      //   speed={1}
+      // />
     );
   }else{
     console.log("not loading")

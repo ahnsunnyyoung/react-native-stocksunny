@@ -33,7 +33,7 @@ export default function CompanyDetail({ route }){
       <View style={styles.graph}>
         <LineChart
           style={{ height: 150 }}
-          data={stock.trendsCalendar}
+          data={stock.symbolCalendar[0]}
           svg={{ stroke: '#e0aaff' }}
           contentInset={{ top: 20, bottom: 20 }}
         >
@@ -56,6 +56,14 @@ export default function CompanyDetail({ route }){
           style={styles.changePView}>
             {selectPercent(stock.percent, stock.diff)}
           
+        </View>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Text style={styles.bold}>Country</Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.content}>{profile.country}</Text>
+          </View>
         </View>
         <View style={styles.container}>
           <View style={styles.left}>

@@ -20,12 +20,11 @@ export function loadStock(symbol) {
         axios.get(`${BASE_URL}stock/profile2?symbol=${symbol}&token=${API_KEY}`).then( (profile) => {
             company.data.profile = profile.data;
 
-            axios.get(`${BASE_URL}stock/recommendation?symbol=${symbol}&token=${API_KEY}`).then( (trend) => {
-                const trends = [];
-                trend.data.forEach(item => {
-                    trends.push(item.buy)
-                });
-                company.data.trendsCalendar = trends.reverse();
+            axios.get(`${BASE_URL}stock/candle?symbol=${symbol}&resolution=1&from=1572651390&to=1572910590&token=${API_KEY}`).then( (candle) => {
+                var candles = [];
+                candles.push(candle.data.c);
+                candles.push(candle.data);
+                company.data.symbolCalendar = candles;
                 console.log(company.data)
                 companyResult[symbol] = company.data
                 return company.data;
