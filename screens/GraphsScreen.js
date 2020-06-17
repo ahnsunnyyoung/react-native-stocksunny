@@ -30,7 +30,9 @@ export default function GraphsScreen() {
   }else{
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <CandleStick candle={candle}/>
+        <CandleStick type={"USD"} candle={candle.usd}/>
+        <CandleStick type={"JPY"} candle={candle.jpy}/>
+
       </ScrollView>
     );
   }
