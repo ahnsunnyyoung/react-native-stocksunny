@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, RefreshControl, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,12 @@ import NewsSumList from '../components/NewsSumList';
 import { loadStocks } from '../actions';
 import AnimatedLoader from "react-native-animated-loader";
 
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+
 export default function HomeScreen({navigation}) {
   const isLoading = useSelector(state => state.loading);
   const dispatch = useDispatch();
@@ -17,11 +23,18 @@ export default function HomeScreen({navigation}) {
     dispatch(loadStocks())
 
   },[])
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(loadStocks())
+    wait(2000).then(() => setRefreshing(false));
+  }, [refreshing]);
 
   if(isLoading){
     console.log("loading")
     return (
-      <Text>Loading...</Text>
+      <Text style={styles.loading}>Loading...</Text>
       // <AnimatedLoader
       //   visible={true}
       //   overlayColor="rgba(0,0,0,0.75)"
@@ -35,7 +48,12 @@ export default function HomeScreen({navigation}) {
 
     return (
         <View style={styles.container}>
-          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <ScrollView 
+            contentContainerStyle={styles.scrollView}
+            refreshControl={
+              <RefreshControl tintColor='#fff' refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            style={styles.container} contentContainerStyle={styles.contentContainer}>
             <StockSumList/>
             <MyList/>
             <NewsSumList navigation={navigation}/>
@@ -54,5 +72,8 @@ const styles = StyleSheet.create({
   lottie: {
     width: 100,
     height: 100
+  },
+  loading: {
+    color:'#fff'
   }
 });

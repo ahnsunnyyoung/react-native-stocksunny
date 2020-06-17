@@ -4,23 +4,11 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import { AntDesign, Ionicons } from '@expo/vector-icons'; 
 import { Collapse,CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 export default function MyList() {
   const navigation = useNavigation();
-
-  const list = [
-    {
-      name: 'Amy Farha',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      subtitle: 'Vice President'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-  ]
-
+  const list = useSelector(state => state.myList);
   return (
     <View style={styles.container}>
       <Card containerStyle={{borderRadius:10, backgroundColor: '#3c096c', borderWidth: 0}}>
@@ -29,7 +17,7 @@ export default function MyList() {
                 <View style={styles.flex}>
                     <View style={styles.left}>
                         <Text style={styles.title}>My List</Text>
-                        <Text style={styles.subtitle}>5 symbols</Text>
+                        <Text style={styles.subtitle}>{list.length} symbols</Text>
                     </View>
                     <View style={styles.right}>
                         <Ionicons name="ios-arrow-dropdown" size={24} color="#e0aaff" />
@@ -41,13 +29,19 @@ export default function MyList() {
                 list.map((l, i) => (
                   <ListItem
                     key={i}
-                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                    title={l.name}
+                    leftAvatar={{ source: { uri: l.profile.logo } }}
+                    title={l.ticker}
                     titleStyle={{color:"#e0aaff"}}
-                    subtitle={l.subtitle}
+                    subtitle={l.profile.name}
                     subtitleStyle={{color:"#e0aaff"}}
                     containerStyle={{width: "100%", backgroundColor: '#3c096c'}}
                     bottomDivider
+                    onPress={() => {
+                      /* 1. Navigate to the Details route with params */
+                      navigation.navigate('CompanyDetail', {
+                        companyId: l.ticker
+                      });
+                    }}
                   />
                 ))
               }

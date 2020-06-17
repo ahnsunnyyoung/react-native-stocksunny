@@ -1,13 +1,50 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { useSelector } from 'react-redux';
-import _ from 'lodash';
+import { ListItem, Button } from 'react-native-elements';
+import { useDispatch, useSelector } from 'react-redux';
+import _, { forEach } from 'lodash';
+import { AntDesign } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
 
-function StockItem({stock}){
-  return(
+import { select, addList } from '../actions'
+
+function AddMyList() {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const stocks = useSelector(state => state.stocks);
+  const items = [ "AAPL", "TSLA", "AMZN", "FB", "MSFT", "AAL"];
+
+  function getList(){
+    const companyList = [];
+    const result = [];
+    _.map(stocks,stock => (companyList.push(stock)))
+    companyList.forEach(i => {
+      if(i.selected){
+        result.push(i)
+      }
+    })
+    console.log("result", result)
+    dispatch(addList(result));
+  }
+
+  const onPress = item => {
+    console.log("press in")
+    items.forEach(i => {
+      if (item === i) {
+        console.log("select함수 하고 심볼은",i)
+        dispatch(select(i))
+      }
+    })
+  };
+
+  function StockItem({item}){
+    var stock = stocks[item]
+    console.log(stock.ticker," 는 선택 ",stock.selected)
+    return (
       <ListItem
-        key={stock.id}
+        onPress={() => onPress(item)}
+        style={[stock.selected ? styles.selected : styles.normal]}
+        key={stock.ticker}
         leftAvatar={{ source: { uri: stock.profile.logo } }}
         title={<Text style={styles.headline}>{stock.ticker}</Text>}
         titleStyle={{color:"#e0aaff"}}
@@ -16,34 +53,40 @@ function StockItem({stock}){
         containerStyle={{backgroundColor: 'black'}}
         bottomDivider
       />  
-  );
-}
-
-export default function AddMyList() {
-  const stocks = useSelector(state => state.stocks);
+    );
+  };
 
   return (
     <View style={styles.container}>
-        {_.map(stocks, stock => (<StockItem key={stock.ticker} stock={stock}/>))}
+        {_.map(items, item => (<StockItem key={item} item={item}/>))}
+        <View style={styles.button}>
+          <Button
+            icon={<AntDesign name="pluscircleo" size={24} color="white" />}
+            title="Add"
+            titleStyle={{color:"white", marginLeft:10, fontSize: 30}}
+            type="clear"
+            onPress = {() => {
+              getList()
+              navigation.goBack()
+            }}
+          />
+        </View>
     </View>
   );
-  
 }
 
+export default AddMyList;
+
 const styles = StyleSheet.create({
+  selected: {
+    backgroundColor: '#fff',
+    marginLeft: 0,
+    paddingLeft: 18,
+  },
+  normal: {},
   container: {
    flex: 1,
    paddingTop: 15
-  },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#e0aaff',
-    backgroundColor: '#3c096c',
   },
   item: {
     padding: 10,
@@ -55,9 +98,7 @@ const styles = StyleSheet.create({
     color: '#e0aaff',
     fontSize:18,
   },
-  date:{
-    fontSize:14,
-    color: '#e0aaff',
-    fontWeight: "100",
+  button: {
+    marginTop: 20
   }
 })
