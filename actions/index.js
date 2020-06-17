@@ -24,7 +24,6 @@ function formatting(candle){
         a.low=candle.data.l[i]
         result.push(a);
     }
-    console.log(result)
     return result
 }
 
@@ -42,7 +41,6 @@ export function loadStock(symbol) {
                 candles.push(candle.data.c);
                 candles.push(formatting(candle));
                 company.data.symbolCalendar = candles;
-                console.log(company.data)
                 companyResult[symbol] = company.data
                 return company.data;
             }).catch((err) => {
@@ -121,6 +119,7 @@ export function loadCandle(){
         dispatch({ type: 'START_LOADING' });
         dispatch({ type: 'CLEAR_ERRORS' });
         const url = `${BASE_URL}/forex/candle?`;
+        const f_url = `${BASE_URL}/forex/rates?`;
         const from = toTimestamp(today.getFullYear(),today.getMonth()+1,today.getDate()-1,9,0,0);
         const to = toTimestamp(today.getFullYear(),today.getMonth()+1,today.getDate(),9,0,0);
         try{
@@ -138,17 +137,19 @@ export function loadCandle(){
                 to:to,
                 token: API_KEY
             }});
-            var result = {};
-            result.usd = formatting(USDcandle);
-            result.jpy = formatting(JPYcandle);
+            const forex = await axios(f_url, {params: {
+                base: "USD",
+                token: API_KEY
+            }});
+            var result = [];
+            var candleResult = {};
+            candleResult.usd = formatting(USDcandle);
+            candleResult.jpy = formatting(JPYcandle);
+            result.push(candleResult);
+            result.push(forex.data.quote)
             dispatch({
                 type: 'LOAD_CANDLE',
                 payload: result,
-            });
-        }catch(error){
-            dispatch({
-                type: 'ERROR',
-                payload: error
             });
         }finally{
             dispatch({ type: 'END_LOADING' });

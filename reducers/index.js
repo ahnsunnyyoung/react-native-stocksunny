@@ -13,6 +13,7 @@ const baseState = {
     myList:[
     ],
     candle: {},
+    forex: {},
 };
 
 function arrayUnique(array) {
@@ -42,7 +43,8 @@ const reducer = produce((state, action) => {
             state.myList = action.payload
             break;  
         case "LOAD_CANDLE":
-            state.candle = action.payload;
+            state.candle = action.payload[0];
+            state.forex = action.payload[1];
             break;
         case 'ERROR':
             state.error = action.payload;
