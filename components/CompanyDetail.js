@@ -6,11 +6,13 @@ import _ from 'lodash';
 import { LineChart } from 'react-native-svg-charts';
 import { Entypo } from '@expo/vector-icons'; 
 
+import CompanyStick from './CompanyStick';
+
 function selectPercent(per, diff){
   if(per<0){
       return(
         <Text style={{color:'#D80A0A', fontSize: 20}}>
-          -{diff} (-{per}%)
+          {diff} ({per}%)
         </Text>
       );
   }else{
@@ -31,13 +33,7 @@ export default function CompanyDetail({ route }){
   return(
     <View>
       <View style={styles.graph}>
-        <LineChart
-          style={{ height: 150 }}
-          data={stock.symbolCalendar[0]}
-          svg={{ stroke: '#e0aaff' }}
-          contentInset={{ top: 20, bottom: 20 }}
-        >
-        </LineChart>
+        <CompanyStick type={stock.ticker} candle={stock.symbolCalendar[1]}/>
       </View>
       <Card containerStyle={{ backgroundColor:"black", borderWidth:0 }}>
         <View style={styles.titleContainer}>
@@ -121,6 +117,7 @@ export default function CompanyDetail({ route }){
 
 const styles = StyleSheet.create({
   titleContainer:{
+    marginTop:-20,
     display: "flex",
     flexDirection: 'row',
   },
@@ -164,5 +161,9 @@ const styles = StyleSheet.create({
   price: {
     color: "#fff",
     fontSize: 20
+  },
+  graph: {
+    marginTop: 30,
+    height: 180
   }
 })

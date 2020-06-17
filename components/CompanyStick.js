@@ -4,14 +4,14 @@ import { VictoryAxis, VictoryChart, VictoryTheme, VictoryCandlestick, VictoryLab
 
 
 
-export default function CandleStick({candle, type}) {
+export default function CompanyStick({candle, type}) {
 
   const sharedAxisStyles = {
     axis: {
       stroke: "transparent"
     },
     tickLabels: {
-      fill: "#e0aaff",
+      fill: "black",
       fontSize: 14
     },
     axisLabel: {
@@ -29,13 +29,6 @@ export default function CandleStick({candle, type}) {
           domainPadding={{ x: 30 }}
           scale={{ x: "time" }}
         >
-          <VictoryLabel
-            text={`${type} Candle Stick`}
-            x={180}
-            y={40}
-            textAnchor="middle"
-            style={{ fill: "#e0aaff", fontSize: 16 }}
-          />
           <VictoryAxis
             style={{
               ...sharedAxisStyles,
@@ -47,12 +40,6 @@ export default function CandleStick({candle, type}) {
               }
             }}
             dependentAxis
-          />
-          <VictoryAxis
-            style={{
-              ...sharedAxisStyles,
-              axisLabel: { ...sharedAxisStyles.axisLabel, padding: 35 }
-            }}
           />
           <VictoryCandlestick
             candleColors={{ positive: "#2b9348", negative: "#D80A0A" }}

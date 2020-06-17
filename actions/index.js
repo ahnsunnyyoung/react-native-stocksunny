@@ -5,6 +5,8 @@ const API_KEY = "bqnc08frh5re7283le90";
 const today = new Date();  
 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 let companyResult = {}
+const from = toTimestamp(today.getFullYear(),today.getMonth()+1,today.getDate()-1,9,0,0);
+const to = toTimestamp(today.getFullYear(),today.getMonth()+1,today.getDate(),9,0,0);
 
 function toTimestamp(year,month,day,hour,minute,second){
     var datum = new Date(Date.UTC(year,month-1,day,hour,minute,second));
@@ -35,10 +37,10 @@ export function loadStock(symbol) {
         axios.get(`${BASE_URL}stock/profile2?symbol=${symbol}&token=${API_KEY}`).then( (profile) => {
             company.data.profile = profile.data;
 
-            axios.get(`${BASE_URL}stock/candle?symbol=${symbol}&resolution=1&from=1572651390&to=1572910590&token=${API_KEY}`).then( (candle) => {
+            axios.get(`${BASE_URL}stock/candle?symbol=${symbol}&resolution=60&from=${from}&to=${to}&token=${API_KEY}`).then( (candle) => {
                 var candles = [];
                 candles.push(candle.data.c);
-                candles.push(candle.data);
+                candles.push(formatting(candle));
                 company.data.symbolCalendar = candles;
                 console.log(company.data)
                 companyResult[symbol] = company.data
