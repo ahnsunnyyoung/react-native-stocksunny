@@ -16,10 +16,13 @@ function formatting(candle){
     for(var i=0; i<candle.data.t.length; i++ ){
         var a ={};
         a.x= new Date(candle.data.t[i]*1000);
-        var list =[candle.data.o[i],candle.data.h[i],candle.data.l[i],candle.data.c[i]];
-        a.y=list;
+        a.open=candle.data.o[i]
+        a.close=candle.data.c[i]
+        a.high=candle.data.h[i]
+        a.low=candle.data.l[i]
         result.push(a);
     }
+    console.log(result)
     return result
 }
 
@@ -111,4 +114,42 @@ export function select(symbol){
     };
 }
 
-
+export function loadCandle(){
+    return async (dispatch) => {
+        dispatch({ type: 'START_LOADING' });
+        dispatch({ type: 'CLEAR_ERRORS' });
+        const url = `${BASE_URL}/forex/candle?`;
+        const from = toTimestamp(today.getFullYear(),today.getMonth()+1,today.getDate()-1,9,0,0);
+        const to = toTimestamp(today.getFullYear(),today.getMonth()+1,today.getDate(),9,0,0);
+        try{
+            const USDcandle = await axios(url, {params: {
+                symbol: 'OANDA:EUR_USD',
+                resolution: 60,
+                from:from,
+                to:to,
+                token: API_KEY
+            }});
+            const JPYcandle = await axios(url, {params: {
+                symbol: 'OANDA:EUR_JPY',
+                resolution: 60,
+                from:from,
+                to:to,
+                token: API_KEY
+            }});
+            var result = {};
+            result.usd = formatting(USDcandle);
+            result.jpy = formatting(JPYcandle);
+            dispatch({
+                type: 'LOAD_CANDLE',
+                payload: result,
+            });
+        }catch(error){
+            dispatch({
+                type: 'ERROR',
+                payload: error
+            });
+        }finally{
+            dispatch({ type: 'END_LOADING' });
+        }
+    };
+}

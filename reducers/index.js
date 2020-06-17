@@ -11,7 +11,8 @@ const baseState = {
     newsSearch:{
     },
     myList:[
-    ]
+    ],
+    candle: {},
 };
 
 function arrayUnique(array) {
@@ -40,6 +41,9 @@ const reducer = produce((state, action) => {
         case "ADD_MYLIST":
             state.myList = action.payload
             break;  
+        case "LOAD_CANDLE":
+            state.candle = action.payload;
+            break;
         case 'ERROR':
             state.error = action.payload;
             break;

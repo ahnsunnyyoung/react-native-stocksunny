@@ -1,15 +1,39 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+
+import CandleStick from '../components/CandleStick';
+import { loadCandle } from '../actions';
 
 export default function GraphsScreen() {
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      
-    </ScrollView>
-  );
+  const isLoading = useSelector(state => state.loading);
+  const dispatch = useDispatch();
+  useEffect(()=> {
+    console.log("useEffect")
+    dispatch(loadCandle())
+
+  },[])
+  const candle = useSelector(state => state.candle);
+  if(isLoading){
+    console.log("loading")
+    return (
+      <Text style={styles.loading}>Loading...</Text>
+      // <AnimatedLoader
+      //   visible={true}
+      //   overlayColor="rgba(0,0,0,0.75)"
+      //   source={require("../assets/1124-loader.json")}
+      //   animationStyle={styles.lottie}
+      //   speed={1}
+      // />
+    );
+  }else{
+    return (
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <CandleStick candle={candle}/>
+      </ScrollView>
+    );
+  }
 }
 
 
@@ -18,4 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
+  loading: {
+    color:'#fff'
+  }
 });
