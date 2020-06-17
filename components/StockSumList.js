@@ -27,7 +27,7 @@ function selectPercent(per, diff){
       );
   }else{
       return(
-        <Text style={{color:'#0AA5D8'}}>
+        <Text style={{color:'#2b9348'}}>
           {per}%({diff})
         </Text>
       );

@@ -10,13 +10,13 @@ function selectPercent(per, diff){
   if(per<0){
       return(
         <Text style={{color:'#D80A0A', fontSize: 20}}>
-          {per}%({diff})
+          -{diff} (-{per}%)
         </Text>
       );
   }else{
       return(
-        <Text style={{color:'#0AA5D8', fontSize: 20}}>
-          {per}%({diff})
+        <Text style={{color:'#2b9348', fontSize: 20}}>
+          +{diff} (+{per}%)
         </Text>
       );
   }
@@ -54,15 +54,24 @@ export default function CompanyDetail({ route }){
         </View>
         <View
           style={styles.changePView}>
+            <Text style={styles.price}>{stock.c}</Text>
             {selectPercent(stock.percent, stock.diff)}
           
         </View>
         <View style={styles.container}>
           <View style={styles.left}>
-            <Text style={styles.bold}>Country</Text>
+            <Text style={styles.bold}>Previous Close</Text>
           </View>
           <View style={styles.right}>
-            <Text style={styles.content}>{profile.country}</Text>
+            <Text style={styles.content}>{stock.pc}</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Text style={styles.bold}>Open</Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.content}>{stock.o}</Text>
           </View>
         </View>
         <View style={styles.container}>
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   container:{
-    marginTop: 20,
+    marginTop: 10,
     display: "flex",
     flexDirection: 'row',
   },
@@ -136,20 +145,24 @@ const styles = StyleSheet.create({
   bold:{
     color: '#e0aaff',
     fontWeight: "400",
-    fontSize: 20
+    fontSize: 18
   },
   content: {
-    color: '#e0aaff',
+    color: '#fff',
     fontWeight: "200",
-    fontSize: 20
+    fontSize: 18
   },
   url: {
-    color: '#e0aaff',
+    color: '#fff',
     fontWeight: "200",
     fontSize: 15
   },
   changePView: {
-    marginTop: 15,
+    marginTop: 10,
     alignSelf: "center"
+  },
+  price: {
+    color: "#fff",
+    fontSize: 20
   }
 })
