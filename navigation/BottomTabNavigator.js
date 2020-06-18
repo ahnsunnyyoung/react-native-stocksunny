@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
-import GraphsScreen from '../screens/GraphsScreen';
+import ForexScreen from '../screens/ForexScreen';
 import Colors from '../constants/Colors';
 
 const BottomTab = createBottomTabNavigator();
@@ -47,10 +47,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Graphs"
-        component={GraphsScreen}
+        name="Forex"
+        component={ForexScreen}
         options={{
-          title: 'Graphs',
+          title: 'Forex',
           tabBarIcon: ({ focused }) => <Entypo 
             name="line-graph" 
             size={30}
@@ -70,8 +70,8 @@ function getHeaderTitle(route) {
       return 'Stock Sunny';
     case 'News':
       return 'News';
-    case 'Graphs':
-      return 'Graphs';
+    case 'Forex':
+      return 'Forex';
   }
 }
 

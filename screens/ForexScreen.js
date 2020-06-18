@@ -8,7 +8,7 @@ import CandleStick from '../components/CandleStick';
 import { loadCandle } from '../actions';
 import ForexSumList from '../components/ForexSumList'
 
-export default function GraphsScreen() {
+export default function ForexScreen() {
   const isLoading = useSelector(state => state.loading);
   const dispatch = useDispatch();
   useEffect(()=> {
