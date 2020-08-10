@@ -18,7 +18,7 @@
 * 내 관심 목록 회사 선택 가능
 * 환율 그래프 확인 가능
 
-<img src="https://github.com/ahnsunnyyoung/react-native-stocksunny/blob/master/screenshots/KakaoTalk_20200618_091409854_01.jpg?raw=true" align="left"
+<img src="https://github.com/ahnsunnyyoung/react-native-stocksunny/blob/master/screenshots/KakaoTalk_20200618_091409854_01.jpg?raw=true"
      alt="mainpage" width="300" height="600">
-<img src="https://github.com/ahnsunnyyoung/react-native-stocksunny/blob/master/screenshots/KakaoTalk_20200618_080342614_01.jpg?raw=true" align="left"
+<img src="https://github.com/ahnsunnyyoung/react-native-stocksunny/blob/master/screenshots/KakaoTalk_20200618_080342614_01.jpg?raw=true"
      alt="mainpage" width="300" height="600">
