@@ -30,10 +30,10 @@
 * input : python TF_IDF.py <infile> <outfile>
 * output : TF IDF file as <outfile>
 * output example
--     D1 D2
-- campu 0 0
-- natur 0 0
-- arrang 0 0.301
+  D1 D2
+  campu 0 0
+  natur 0 0
+  arrang 0 0.301
 
 ### cosine_similarity.py
 * input :  python cosine_similarity.py <infile> D1 D2
