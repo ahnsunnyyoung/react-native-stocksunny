@@ -1,7 +1,9 @@
-# Sunyoung Ahn, Theophane
+# Information Retrieval system project by Sunyoung Ahn, Theophane
 
 ## System Requirments
-* 
+* OS: Windows 10
+* CPU: Intel or AMD processor with 64-bit support;
+* Disk Storage: 4 GB of free disk space
 
 ## Language & version
 * Python 3
@@ -54,6 +56,7 @@ D4 0.4
 ...
 ```
 
+  
 ## Installation
 * pip install scrapy
 
