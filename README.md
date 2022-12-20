@@ -10,18 +10,21 @@
 
 ## list of code and instroduction
 ### scrapping.py
-* input :  python scrapping.py outfolder
-* output : scrapped documents in outfolder
+* input :  python scrapping.py "outfolder"
+* input example : python scrapping.py documents
+* output : scrapped documents files and information file of ducuments in "outfolder"
 
 ### preprocessing.py
-* input : python preprocessing.py infolder outfolder stopwords file name
+* input : python preprocessing.py "infolder" "outfolder" "stopwords file name"
+* input example : python preprocessing.py documents preprocessed stopwords.txt
 * output : preprocessed documents in outfolder 
 
 ### stemmer.py
 * PorterStemmer class used for preprocess
 
 ### inverted_index.py
-* input : python inverted_index.py infolder outfile
+* input : python inverted_index.py "infolder" "outfile"
+* input example : python inverted_index.py preprocessed inverted_index.txt
 * output : inverted index file as outfile
 * ouput example
 ```
@@ -31,7 +34,8 @@ arrang	D2[1]
 ```
 
 ### TF_IDF.py
-* input : python TF_IDF.py infile outfile
+* input : python TF_IDF.py "infile" "outfile"
+* input example : python TF_IDF.py inverted_index.txt TF_IDF.txt
 * output : TF IDF file as outfile
 * output example
 ```
@@ -42,12 +46,14 @@ arrang 0 0.301
 ```
 
 ### cosine_similarity.py
-* input :  python cosine_similarity.py infile D1 D2
+* input :  python cosine_similarity.py "infile" "D1" "D2"
+* input example : python cosine_similarity.py TF_IDF.txt D1 D2
 * output : cosine similarity between two documents (D1, D2)
 * output example : 0.723
 
 ### IR.py
-* input :  python IR.py folder_name “Great” stopwords file
+* input :  python IR.py "folder_name" “query” "stopwords file"
+* input example : python IR.py documents Great stopwords.txt
 * output : Ordered document list by similarity with query("Great")
 * output example
 ```
