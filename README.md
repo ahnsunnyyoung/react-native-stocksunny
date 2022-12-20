@@ -46,15 +46,15 @@ arrang 0 0.301
 ```
 
 ### cosine_similarity.py
-* input :  python cosine_similarity.py "infile" "D1" "D2"
+* input :  python cosine_similarity.py "infile" "D12" "D14"
 * input example : python cosine_similarity.py TF_IDF.txt D1 D2
 * output : cosine similarity between two documents (D1, D2)
 * output example : 0.723
 
 ### IR.py
 * input :  python IR.py "folder_name" “query” "stopwords file"
-* input example : python IR.py documents Great stopwords.txt
-* output : Ordered document list by similarity with query("Great")
+* input example : python IR.py documents Students stopwords.txt
+* output : Ordered document list by similarity with query("Students")
 * output example
 ```
 D10 0.8 
