@@ -53,7 +53,7 @@ arrang 0 0.301
 
 ### IR.py
 * input :  python IR.py "folder_name" “query” "stopwords file"
-* input example : python IR.py documents Students stopwords.txt
+* input example : python IR.py documents students stopwords.txt
 * output : Ordered document list by similarity with query("Students")
 * output example
 ```
