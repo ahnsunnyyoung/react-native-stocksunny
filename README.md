@@ -34,10 +34,10 @@ arrang	D2[1]
 * output example
   ```
   D1 D2
-  campu 0 0
-  natur 0 0
-  arrang 0 0.301
-  ```
+campu 0 0
+natur 0 0
+arrang 0 0.301
+```
 
 ### cosine_similarity.py
 * input :  python cosine_similarity.py <infile> D1 D2
@@ -48,11 +48,11 @@ arrang	D2[1]
 * input :  python IR.py <folder_name> “Great” <stopwords file>
 * output : Ordered document list by similarity with query("Great")
 * output example
-  ```
+```
 D10 0.8 
 D4 0.4
 ...
-  ```
+```
 
 ## Installation
 * pip install scrapy
