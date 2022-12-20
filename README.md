@@ -32,7 +32,7 @@ arrang	D2[1]
 * input : python TF_IDF.py <infile> <outfile>
 * output : TF IDF file as <outfile>
 * output example
-  ```
+```
   D1 D2
 campu 0 0
 natur 0 0
